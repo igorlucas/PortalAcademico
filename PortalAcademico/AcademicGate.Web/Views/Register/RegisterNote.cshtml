@@ -1,0 +1,61 @@
+﻿@model AcademicGate.Web.Models.NotesStudentTeamViewModel    
+    
+@{
+    ViewBag.Title = "Lançar Notas";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       <div class="form-group">
+            @Html.LabelFor(model => model.TeamId, "Turma", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TeamId", null, "Selecione...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeamId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Nota", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="typeNote" class = "form-control">
+                    <option value="">Selecione...</option>
+                    <option value="AP1">AP1</option>
+                    <option value="AP2">AP2</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Valor", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="valueNote" value="" class = "form-control"/>
+                <br/>
+                <p class = "text-danger">@ViewBag.Message<p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>

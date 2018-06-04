@@ -1,0 +1,122 @@
+﻿@using Microsoft.AspNet.Identity
+@model AcademicGate.Web.Models.ApplicationDbContext
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Portal Acadêmico</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        @if (Request.IsAuthenticated)
+        {
+            var admin = User.IsInRole("Admin");
+            var coord = User.IsInRole("Coordenador");
+            var prof = User.IsInRole("Professor");
+            var aluno = User.IsInRole("Aluno");
+
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @*<li>@Html.ActionLink("Registrar-se", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+                        <li class="dropdown" id="cadastro">
+                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Cadastrar
+                            </a>
+                            <ul class="dropdown-menu">
+                                @if (admin)
+                                {
+                                    <li>@Html.ActionLink("Administrador", "RegisterUser", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Coordenador", "RegisterUser", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                }
+                                @if (admin || prof)
+                                {
+                                    <li>@Html.ActionLink("Matricula", "RegisterStudentTeam", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Professor", "RegisterTeacher", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Aluno", "RegisterStudent", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Calendario Acadêmico", "RegisterCalendar", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Turmas", "RegisterTeam", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Disciplinas", "RegisterDicipline", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                }
+                                <li>@Html.ActionLink("Notas", "RegisterNote", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="relatorios">
+                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Relatorios
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Alunos", "ListStudents", "Report", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                <li>@Html.ActionLink("Professores", "ListTeachers", "Report", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                @if (admin)
+                                {
+                                    <li>@Html.ActionLink("Usuários", "ListUsers", "Report", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                }
+                            </ul>
+                        </li>
+                        @if (admin || prof)
+                        {
+                        <li><a>Exibir Provas</a></li>
+                        <li><a>Emitir Boletim</a></li>
+                        }
+                        @if (admin || prof)
+                        {
+                            <li class="dropdown" id="professor">
+                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Professor
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Lançar notas", "RegisterNote", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Lançar frequêcia", "GetTeamRegistred", "Register", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li><a>Imprimir frequência</a></li>
+                                    <li><a>Imprimir mapa de notas</a></li>
+                                    <li><a>Submeter provas</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (admin || aluno)
+                        {
+                            <li class="dropdown" id="aluno">
+                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Aluno
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a>Emitir declaração</a></li>
+                                    <li><a>Verificar situação</a></li>
+                                    <li><a>Verificar conteúdo na turma</a></li>
+                                    <li><a>Solicitar matricula</a></li>
+                                    <li><a>Emitir atestado</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        }
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Portal Acadêmico</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

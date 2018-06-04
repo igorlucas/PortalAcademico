@@ -1,0 +1,24 @@
+﻿@using AcademicGate.Web.Models      
+@model ApplicationDbContext
+@{
+    /**/
+
+    ViewBag.Title = "Turmas";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+@foreach (var turmaId in ViewBag.ListaTurmasId)
+{
+    var _context = new ApplicationDbContext();
+    var routeParams = _context.Teams.Find(turmaId);   
+
+    string nomeTurma = "Turma "+routeParams.Name;
+
+    <div class="btn btn-info">@Html.ActionLink(nomeTurma, "RegisterFrequence", "Register", routeValues: new Team() { Id = turmaId }, htmlAttributes: new { id = "registerLink"})</div>
+}
+
+<hr />
+<br />
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>

@@ -1,0 +1,14 @@
+﻿@{
+
+    ViewBag.Title = "Lista de Professores";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+@foreach (var professor in ViewBag.Teachers)
+{
+    <ul>
+        <li>@professor</li>
+    </ul>
+}
+
