@@ -36,5 +36,17 @@ namespace AcademicGate.Web.Controllers
             ViewBag.Users = _context.Users.Select(a => a.Name).ToList();
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult ShowAvaliations()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ShowReports()   
+        {
+            return View();
+        }
     }
 }

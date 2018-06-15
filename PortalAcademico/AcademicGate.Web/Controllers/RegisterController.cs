@@ -71,6 +71,7 @@ namespace AcademicGate.Web.Controllers
                     Cpf = model.Cpf,
                     PhoneNumber = model.Phone,
                     BirthDate = model.BirthDate,
+                    IngressedYear = DateTime.Now,
                     Address = model.Address,
                     Permission = permission,
                     UserName = model.Email,
@@ -89,6 +90,7 @@ namespace AcademicGate.Web.Controllers
             return View(model);
         }
 
+        
 
         [AllowAnonymous]
         public ActionResult RegisterTeacher()
@@ -113,7 +115,8 @@ namespace AcademicGate.Web.Controllers
                     Formation = model.Formation,
                     Permission = permission,
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email,
+                   IngressedYear = DateTime.Now
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);

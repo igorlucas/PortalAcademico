@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -156,7 +157,9 @@ namespace AcademicGate.Web.Controllers
                     Name = model.Name,
                     Permission = permission,
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email,
+                    BirthDate = DateTime.Now,
+                    IngressedYear = DateTime.Now
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);

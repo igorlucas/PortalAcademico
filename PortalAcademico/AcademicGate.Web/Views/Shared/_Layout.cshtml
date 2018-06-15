@@ -69,8 +69,8 @@
                         </li>
                         @if (admin || prof)
                         {
-                        <li><a>Exibir Provas</a></li>
-                        <li><a>Emitir Boletim</a></li>
+                            <li>@Html.ActionLink("Exibir Provas", "ShowAvaliations", "Report", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li>@Html.ActionLink("Emitir Boletim", "ShowReports", "Report", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                         }
                         @if (admin || prof)
                         {
