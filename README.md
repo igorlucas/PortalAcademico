@@ -1,1 +1,2 @@
-# Portal Academico - Projeto para o controle e gestão educacional.  
+# Portal Academico 
+# Projeto para o Controle e Gestão Educacional.  
