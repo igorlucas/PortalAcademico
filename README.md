@@ -1,5 +1,5 @@
 # Portal Academico 
-# Projeto para o Controle e Gestão Educacional. 
+# Projeto para o controle e gestão de uma entidade educacional. 
 
 **Levantamento inicial dos requisitos:**
 
